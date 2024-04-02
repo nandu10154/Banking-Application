@@ -7,6 +7,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/account")
 public class AccountController {
@@ -23,5 +25,10 @@ public class AccountController {
     public ResponseEntity<Account> getDetails(@PathVariable Long accountNumber){
         Account account = accountService.getccountDetailsByAccountNumber(accountNumber);
         return ResponseEntity.ok(account);
+    }
+    @GetMapping("/getall")
+    public ResponseEntity<List<Account>> getallDetails(){
+        List<Account> accounts = accountService.getAllAccountDetails();
+        return ResponseEntity.ok(accounts);
     }
 }

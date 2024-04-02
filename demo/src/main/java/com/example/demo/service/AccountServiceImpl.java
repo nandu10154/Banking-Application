@@ -5,6 +5,7 @@ import com.example.demo.repo.AccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -31,7 +32,11 @@ public class AccountServiceImpl implements AccountService{
 
     @Override
     public List<Account> getAllAccountDetails() {
-        return null;
+        List<Account> accounts = accountRepository.findAll();
+        if(accounts.isEmpty()){
+            throw new RuntimeException("Account is not Exists");
+        }
+        return accounts;
     }
 
     @Override
