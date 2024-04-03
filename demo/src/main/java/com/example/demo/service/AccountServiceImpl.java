@@ -41,12 +41,33 @@ public class AccountServiceImpl implements AccountService{
 
     @Override
     public Account depositMoney(Long accountNumber, Double money) {
-        return null;
+        Optional<Account> account = accountRepository.findById(accountNumber);
+        if(account.isEmpty()){
+            throw new RuntimeException("Account is not Exists");
+        }
+        Account deposit = account.get();
+        double v = deposit.getAccount_balance() + money;
+        deposit.setAccount_balance(v);
+        accountRepository.save(deposit);
+        return deposit;
     }
 
     @Override
     public Account withdrawAmount(Long accountNumber, Double money) {
-        return null;
+        Optional<Account> account = accountRepository.findById(accountNumber);
+        if (account.isEmpty()){
+            throw new RuntimeException("account not found");
+        }
+        Account withdraw = account.get();
+        Double balance = withdraw.getAccount_balance();
+        if(balance<money){
+            throw new RuntimeException("Aount entered is lessthan balance");
+        }
+        Double total = balance-money;
+        withdraw.setAccount_balance(total);
+        accountRepository.save(withdraw);
+
+        return withdraw;
     }
 
     @Override

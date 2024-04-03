@@ -31,4 +31,14 @@ public class AccountController {
         List<Account> accounts = accountService.getAllAccountDetails();
         return ResponseEntity.ok(accounts);
     }
+    @PutMapping("/deposit")
+    public ResponseEntity<Account> deposit(@RequestParam Long accountNumber,@RequestParam Double money){
+        Account deposit = accountService.depositMoney(accountNumber,money);
+        return ResponseEntity.ok(deposit);
+    }
+    @PutMapping("/withdraw")
+    public ResponseEntity<Account> withdraw(@RequestParam Long accountNumber,@RequestParam Double money){
+        Account withdraw = accountService.withdrawAmount(accountNumber,money);
+        return ResponseEntity.ok(withdraw);
+    }
 }
